@@ -36,13 +36,17 @@ def Reaction_Feedback(data):
             try:               
                 if reaction['message']['reactions'][i]['name']=="+1":
                     Thumbs_Up = reaction['message']['reactions'][i]['count']
+                    data[i].append(Thumbs_Up)
             except KeyError:
                 pass
             try:
                 if reaction['message']['reactions'][i]["name"]=="-1":
                     Thumbs_Down = reaction['message']['reactions'][i]["count"]
+                    data[i].append(Thumbs_Down)
             except KeyError:
                 pass
-        reactions.append([data[j][2],Thumbs_Up,Thumbs_Down])
-    return reactions
-            
+    return data
+
+def Delete_Previous(data):
+    for i in range(len(data)):
+            slack.chat.delete(channel= data[i][1], ts=data[i][0], as_user=True)
