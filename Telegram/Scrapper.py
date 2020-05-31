@@ -77,13 +77,14 @@ def contain_url(updates):
                     offset=updates["result"][i]["message"]["caption_entities"][j]["offset"]
                     length=updates["result"][i]["message"]["caption_entities"][j]["length"]                    
                     text_s = updates["result"][i]["message"]["caption"].encode('ascii', 'ignore').decode('ascii')
-                    url=text_s[offset-2:offset+length+3]
+                    url=updates["result"][i]["message"]["caption"][offset:offset+length]
                     text_entities = updates["result"][i]["message"]["caption_entities"][j]["type"]
                     input_data=[text_s,url,updates["result"][i]["update_id"],]
                     if input_data not in message:
                         message.append(input_data[:])
     message.reverse()
     Remove_Blacklisted_URL(message)
+    return message
                 
 def get_last_chat_id_and_text(updates):
     num_updates = len(updates["result"])

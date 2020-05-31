@@ -2,10 +2,8 @@ from Scrapper import *
 from Slack_Intigrater import *
 from database import *
 
-contain_url(get_updates())             ## From Scrapper.py to get all mesages that contain url
+Message_Data = contain_url(get_updates())
 
-# remove_dublicate(message)              ## Removes Dublicate Messages (Due to the message containing multiple url)
+Serve_Slack(Message_Data)
 
-Serve_Slack(message)
-
-Add_to_Sheets(message)                 ## Adds the message and metadata to google sheet
+Add_to_Sheets(Message_Data)                 ## Adds the message and metadata to google sheet
